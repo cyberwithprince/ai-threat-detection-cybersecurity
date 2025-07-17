@@ -1,0 +1,128 @@
+:root {
+    --neon-blue: #00fff9;
+    --neon-pink: #ff00ff;
+    --neon-purple: #b026ff;
+    --dark-bg: #0a0a0f;
+    --darker-bg: #050507;
+    --cyber-yellow: #f0db4f;
+}
+
+body {
+    font-family: 'Rajdhani', 'Orbitron', sans-serif;
+    background: var(--dark-bg);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, var(--darker-bg) 21px, transparent 1%) center,
+        linear-gradient(var(--darker-bg) 21px, transparent 1%) center,
+        var(--neon-blue);
+    background-size: 22px 22px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 20px;
+    background: rgba(10, 10, 15, 0.8);
+    border: 1px solid var(--neon-blue);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 255, 249, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    text-align: center;
+}
+
+.stats {
+    text-align: center;
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1rem;
+    background: rgba(10, 10, 15, 0.6);
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid rgba(0, 255, 249, 0.2);
+    padding: 1rem;
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    position: relative;
+}
+
+td {
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+td:hover {
+    background: rgba(0, 255, 249, 0.1);
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+
+th {
+    background-color: rgba(0, 255, 249, 0.1);
+    color: var(--neon-blue);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-shadow: 0 0 10px var(--neon-blue);
+    border-bottom: 2px solid var(--neon-blue);
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 20px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+a.btn:hover {
+    background-color: #45a049;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}

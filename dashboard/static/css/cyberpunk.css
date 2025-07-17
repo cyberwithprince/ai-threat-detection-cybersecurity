@@ -1,0 +1,114 @@
+/* Cyberpunk-specific styles */
+.status-indicator.threat {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+    animation: threatPulse 1s ease-in-out infinite alternate;
+}
+
+.status-indicator.safe {
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.action-tag {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 3px;
+}
+
+.action-tag.blocked {
+    color: var(--neon-pink);
+    border: 1px solid var(--neon-pink);
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.action-tag.allowed {
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.reward {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.reward.positive {
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.reward.negative {
+    color: var(--neon-pink);
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.attack-type {
+    color: var(--neon-purple);
+    text-shadow: 0 0 5px var(--neon-purple);
+}
+
+.error {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+    animation: glitch 0.3s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* Add scanline effect to the table */
+.table-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 255, 249, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scanline 10s linear infinite;
+}
+
+/* Improve scrollbar visibility */
+.table-container::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: rgba(0, 255, 249, 0.1);
+    border-radius: 6px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--neon-blue);
+    border-radius: 6px;
+    border: 2px solid var(--dark-bg);
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-purple);
+}

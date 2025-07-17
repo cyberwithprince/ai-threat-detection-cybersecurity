@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Logs</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Action Logs</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>IP Address</th>
+                    <th>Action</th>
+                    <th>SHAP Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.ip }}</td>
+                    <td>{{ log.action }}</td>
+                    <td><a href="/explanation/{{ log.packet_id }}">View SHAP</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/" class="btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

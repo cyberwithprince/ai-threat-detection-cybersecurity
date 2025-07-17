@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDP Security Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="simulation-header">
+            <h1 style="margin:30px;" >Cyber TDP Model</h1>
+            <div class="simulation-controls">
+                <span id="simulationStatus" class="status-badge stopped">Simulation stopped</span>
+                <button id="startSimulation" onclick="startSimulation()">Start Simulation</button>
+                <button id="stopSimulation" onclick="stopSimulation()" disabled>Stop Simulation</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>Total Threats</h3>
+                    <span class="mdi mdi-alert"></span>
+                </div>
+                <div id="totalThreats" class="stat-value">{{ total_attacks }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3>Normal Traffic</h3>
+                    <span class="mdi mdi-check"></span>
+                </div>
+                <div id="normalTraffic" class="stat-value">{{ total_benign }}</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="simulationTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Timestamp</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Severity</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="explanationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('explanationModal').style.display='none'">&times;</span>
+            <h2>Attack Explanation</h2>
+            <div id="explanationContent">
+                <div class="loading">Generating explanation...</div>
+            </div>
+            <div id="sqlExplanation" class="sql-explanation" style="display: none;">
+                <h3>SQL Injection Analysis</h3>
+                <div class="feature-highlights">
+                    <p>Key Indicators:</p>
+                    <ul id="sqlIndicators"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

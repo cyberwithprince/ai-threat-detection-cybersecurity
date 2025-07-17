@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CyberGuard AI - Threat Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-blue: #00fff9;
+      --neon-pink: #ff00ff;
+      --neon-purple: #b026ff;
+      --dark-bg: #0a0a0f;
+      --darker-bg: #050507;
+      --cyber-yellow: #f0db4f;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      margin: 0;
+      background: var(--dark-bg);
+      color: #fff;
+      min-height: 100vh;
+      padding: 2rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+          linear-gradient(90deg, var(--darker-bg) 21px, transparent 1%) center,
+          linear-gradient(var(--darker-bg) 21px, transparent 1%) center,
+          var(--neon-blue);
+      background-size: 22px 22px;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--neon-blue);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-shadow: 0 0 10px var(--neon-blue),
+                   0 0 20px var(--neon-blue),
+                   0 0 40px var(--neon-blue);
+      animation: neonPulse 1.5s ease-in-out infinite alternate;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      color: var(--neon-blue);
+      background-color: transparent;
+      border: 2px solid var(--neon-blue);
+      border-radius: 0;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px var(--neon-blue);
+      box-shadow: 0 0 10px rgba(0, 255, 249, 0.2);
+      clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+    }
+
+    .btn:hover {
+      background-color: var(--neon-blue);
+      color: var(--dark-bg);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--neon-blue);
+    }
+
+    .btn-stop {
+      color: var(--neon-pink);
+      border-color: var(--neon-pink);
+      text-shadow: 0 0 5px var(--neon-pink);
+    }
+
+    .btn-stop:hover {
+      background-color: var(--neon-pink);
+      color: var(--dark-bg);
+      box-shadow: 0 0 20px var(--neon-pink);
+    }
+
+    .cyber-panel {
+      margin: 2rem 0;
+      padding: 1rem;
+      background: rgba(10, 10, 15, 0.8);
+      border: 1px solid var(--neon-blue);
+      position: relative;
+      animation: panelGlow 2s ease-in-out infinite alternate;
+    }
+
+    .cyber-panel::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, 
+        var(--neon-blue), 
+        var(--neon-purple), 
+        var(--neon-pink), 
+        var(--neon-blue));
+      z-index: -1;
+      animation: borderGlow 3s linear infinite;
+      filter: blur(8px);
+    }
+
+    .cyber-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .cyber-panel-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-blue);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin: 0 1rem;
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem;
+    }
+
+    .metric-box {
+      position: relative;
+      padding: 1rem;
+      background: rgba(0, 255, 249, 0.05);
+      border: 1px solid var(--neon-blue);
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+    }
+
+    .metric-value {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      font-size: 1.5rem;
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    /* Table Styles */
+    .data-table {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(10, 10, 15, 0.8);
+      border: 1px solid var(--neon-blue);
+      position: relative;
+    }
+
+    .data-table::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, 
+        var(--neon-blue), 
+        var(--neon-purple), 
+        var(--neon-pink), 
+        var(--neon-blue));
+      z-index: -1;
+      animation: borderGlow 3s linear infinite;
+      filter: blur(8px);
+    }
+
+    .table-container {
+      max-height: 500px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      background: rgba(10, 10, 15, 0.9);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    th {
+      background: rgba(0, 255, 249, 0.1);
+      padding: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-blue);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      text-shadow: 0 0 5px var(--neon-blue);
+      border-bottom: 2px solid var(--neon-blue);
+      position: sticky;
+      top: 0;
+    }
+
+    td {
+      padding: 0.75rem;
+      font-family: 'Share Tech Mono', monospace;
+      border-bottom: 1px solid rgba(0, 255, 249, 0.2);
+    }
+
+    tbody tr {
+      transition: all 0.3s ease;
+    }
+
+    tr.high-threat {
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    tr.high-threat:hover {
+      background: rgba(255, 0, 0, 0.2);
+    }
+
+    .status-indicator {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    tr.high-threat .status-indicator {
+      color: var(--neon-pink);
+      text-shadow: 0 0 10px var(--neon-pink);
+      animation: threatPulse 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes neonPulse {
+      from {
+        text-shadow: 0 0 10px var(--neon-blue),
+                     0 0 20px var(--neon-blue),
+                     0 0 40px var(--neon-blue);
+      }
+      to {
+        text-shadow: 0 0 5px var(--neon-blue),
+                     0 0 10px var(--neon-blue),
+                     0 0 20px var(--neon-blue);
+      }
+    }
+
+    @keyframes borderGlow {
+      0% {
+        filter: blur(8px) hue-rotate(0deg);
+      }
+      100% {
+        filter: blur(8px) hue-rotate(360deg);
+      }
+    }
+
+    @keyframes threatPulse {
+      from {
+        text-shadow: 0 0 5px var(--neon-pink);
+      }
+      to {
+        text-shadow: 0 0 15px var(--neon-pink);
+      }
+    }
+
+    /* Scrollbar Styling */
+    .table-container::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .table-container::-webkit-scrollbar-track {
+      background: var(--darker-bg);
+    }
+
+    .table-container::-webkit-scrollbar-thumb {
+      background: var(--neon-blue);
+      border-radius: 5px;
+    }
+
+    .table-container::-webkit-scrollbar-thumb:hover {
+      background: var(--neon-purple);
+    }
+  </style>
+</head>
+<body>
+  <h1>📊 CyberGuard AI</h1>
+
+  <div class="button-container">
+    <button id="start-btn" class="btn">Initialize System</button>
+    <button id="stop-btn" class="btn btn-stop">Emergency Stop</button>
+  </div>
+
+  <div class="cyber-panel">
+    <div class="cyber-panel-header">
+      <h2>System Status</h2>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-box">
+        <div class="metric-label">Reward Status</div>
+        <div id="cumulative" class="metric-value">0</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-label">Threats Detected</div>
+        <div id="attackCount" class="metric-value">{{ total_attacks }}</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-label">Safe Traffic</div>
+        <div id="benignCount" class="metric-value">{{ total_benign }}</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-label">Last Incident</div>
+        <div id="lastAttackTime" class="metric-value">--:--:--</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="data-table">
+    <div class="cyber-panel-header">
+      <h2>Network Analysis</h2>
+    </div>
+    <div class="table-container">
+      <table id="stream-table">
+        <thead>
+          <tr>
+            <th>Packet ID</th>
+            <th>Status</th>
+            <th>Attack Type</th>
+            <th>True Label</th>
+            <th>Action</th>
+            <th>Reward</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be appended here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let eventSource = null;
+
+    document.getElementById("start-btn").onclick = function () {
+      if (!eventSource) {
+        eventSource = new EventSource("/live_stream");
+        document.getElementById("status").textContent = "System Active";
+        
+        eventSource.onmessage = function (event) {
+          const [idx, pred, attackCategory, trueLabel, action, reward, cumReward] = event.data.split(",");
+          
+          // Update metrics
+          if (pred == "1") {
+            let attackCount = document.getElementById("attackCount");
+            let currentCount = parseInt(attackCount.textContent);
+            attackCount.textContent = currentCount + 1;
+            document.getElementById("lastAttackTime").textContent = new Date().toLocaleTimeString();
+          } else {
+            let benignCount = document.getElementById("benignCount");
+            let currentCount = parseInt(benignCount.textContent);
+            benignCount.textContent = currentCount + 1;
+          }
+          
+          // Update reward
+          document.getElementById("cumulative").textContent = cumReward;
+
+          // Add new row
+          const tableBody = document.querySelector("#stream-table tbody");
+          const row = document.createElement("tr");
+          row.className = pred == "1" ? "high-threat" : "";
+          
+          row.innerHTML = `
+            <td>${idx}</td>
+            <td>
+              <span class="status-indicator">
+                ${pred == "1" ? "⚠ THREAT" : "✓ SAFE"}
+              </span>
+            </td>
+            <td>${attackCategory || 'N/A'}</td>
+            <td>${trueLabel}</td>
+            <td>${action == "1" ? "BLOCKED" : "ALLOWED"}</td>
+            <td>${reward}</td>
+            <td>${cumReward}</td>
+          `;
+          
+          tableBody.appendChild(row);
+
+          // Auto-scroll to bottom
+          const container = document.querySelector(".table-container");
+          container.scrollTop = container.scrollHeight;
+        };
+
+        eventSource.onerror = function (err) {
+          document.getElementById("status").textContent = "Connection Lost";
+          eventSource.close();
+          eventSource = null;
+        };
+      }
+    };
+
+    document.getElementById("stop-btn").onclick = function () {
+      if (eventSource) {
+        eventSource.close();
+        eventSource = null;
+        document.getElementById("status").textContent = "System Halted";
+      }
+    };
+  </script>
+</body>
+</html>
