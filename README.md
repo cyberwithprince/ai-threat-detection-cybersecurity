@@ -93,11 +93,6 @@ Pull requests and issues are welcome! See `CONTRIBUTING.md` for guidelines (opti
 
 ---
 
-## 📄 License
-MIT License (or your choice)
-
----
-
 ## 🙏 Acknowledgements
 - [UNSW-NB15 Dataset](https://www.unsw.adfa.edu.au/unsw-canberra-cyber/cybersecurity/ADFA-NB15-Datasets/)
 - XGBoost, Flask, SHAP, Scapy, and the open-source community
